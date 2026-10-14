@@ -1,0 +1,20 @@
+test_decimal_sem_erro_binario (tests.test_contas.TestContas.test_decimal_sem_erro_binario) ... ok
+test_entrada_com_virgula (tests.test_contas.TestContas.test_entrada_com_virgula) ... ok
+test_estouro_nao_altera_saldo (tests.test_contas.TestContas.test_estouro_nao_altera_saldo) ... ok
+test_poupanca_nao_utiliza_limite (tests.test_contas.TestContas.test_poupanca_nao_utiliza_limite) ... ok
+test_saque_corrente_utiliza_limite (tests.test_contas.TestContas.test_saque_corrente_utiliza_limite) ... ok
+test_saque_integral (tests.test_contas.TestContas.test_saque_integral) ... ok
+test_valores_invalidos_nao_alteram_conta (tests.test_contas.TestContas.test_valores_invalidos_nao_alteram_conta) ... ok
+test_conta_inexistente (tests.test_postgres.TestPostgres.test_conta_inexistente) ... skipped 'Defina RUN_POSTGRES_TESTS=1 e DB_* para testar PostgreSQL'
+test_corrente_e_limite (tests.test_postgres.TestPostgres.test_corrente_e_limite) ... skipped 'Defina RUN_POSTGRES_TESTS=1 e DB_* para testar PostgreSQL'
+test_cpf_duplicado (tests.test_postgres.TestPostgres.test_cpf_duplicado) ... skipped 'Defina RUN_POSTGRES_TESTS=1 e DB_* para testar PostgreSQL'
+test_depositos_concorrentes (tests.test_postgres.TestPostgres.test_depositos_concorrentes) ... skipped 'Defina RUN_POSTGRES_TESTS=1 e DB_* para testar PostgreSQL'
+test_reconexao_preserva_saldo_historico_e_cliente (tests.test_postgres.TestPostgres.test_reconexao_preserva_saldo_historico_e_cliente) ... skipped 'Defina RUN_POSTGRES_TESTS=1 e DB_* para testar PostgreSQL'
+test_rollback_se_historico_falhar (tests.test_postgres.TestPostgres.test_rollback_se_historico_falhar) ... skipped 'Defina RUN_POSTGRES_TESTS=1 e DB_* para testar PostgreSQL'
+test_saque_recusado_nao_altera_banco (tests.test_postgres.TestPostgres.test_saque_recusado_nao_altera_banco) ... skipped 'Defina RUN_POSTGRES_TESTS=1 e DB_* para testar PostgreSQL'
+test_valor_invalido_e_tipo_invalido (tests.test_postgres.TestPostgres.test_valor_invalido_e_tipo_invalido) ... skipped 'Defina RUN_POSTGRES_TESTS=1 e DB_* para testar PostgreSQL'
+
+----------------------------------------------------------------------
+Ran 15 tests in 0.001s
+
+OK (skipped=8)
