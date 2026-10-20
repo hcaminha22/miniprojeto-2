@@ -1,4 +1,4 @@
 Mini Projeto 2 — Evolução com PostgreSQL e Docker Compose
 Leia README.md para iniciar, testar e entender as alterações.
-Consulte docs/IMPLEMENTACAO.md para resultados confirmados e pendências.
+Consulte docs/IMPLEMENTACAO.md para verificações realizadas e limitações conhecidas.
 A interface permanece no terminal. Não há frontend web nem API.

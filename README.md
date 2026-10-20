@@ -2,7 +2,7 @@
 
 Aplicação bancária de terminal feita em Python. Permite cadastrar clientes, criar contas correntes e poupanças, depositar, sacar e consultar extratos. O PostgreSQL guarda os dados entre execuções; o Docker Compose inicia a aplicação e o banco juntos.
 
-> **Situação registrada:** sete testes das regras passaram. Os oito testes de integração com PostgreSQL foram ignorados porque não havia servidor disponível. Docker, comunicação entre os containers e persistência no volume ainda não foram validados. Consulte [`docs/IMPLEMENTACAO.md`](docs/IMPLEMENTACAO.md) para ver o registro e as pendências.
+> **Verificado em 20/10/2026:** os 16 testes passaram, incluindo os oito testes de integração com PostgreSQL. A imagem Docker foi construída, o serviço `db` ficou saudável e foi confirmado pelo menu que cliente, saldo e extrato continuam disponíveis após recriar os containers. Os testes manuais usaram um projeto Compose isolado e descartável. Consulte [`docs/IMPLEMENTACAO.md`](docs/IMPLEMENTACAO.md) e [`docs/RESULTADO_TESTES.txt`](docs/RESULTADO_TESTES.txt) para os detalhes.
 
 ## Iniciar no Windows
 
@@ -161,10 +161,10 @@ Digite `\q` para sair do `psql`.
 
 ## Limitações conhecidas
 
-- A validação do CPF confere o formato e rejeita números repetidos, mas não verifica os dígitos verificadores.
+- A validação do CPF aceita dígitos ASCII, confere o formato e rejeita números repetidos, mas não verifica os dígitos verificadores.
 - O projeto não tem autenticação, autorização, API nem interface web; foi preparado para desenvolvimento local.
 - O extrato carrega o histórico completo da conta em cada consulta. Para um volume maior, seria necessário paginar ou otimizar essa leitura.
-- Docker e a integração real com PostgreSQL ainda precisam ser validados, conforme o registro em [`docs/IMPLEMENTACAO.md`](docs/IMPLEMENTACAO.md).
+- A persistência foi verificada em um volume novo e isolado; o volume pré-existente do usuário não foi alterado durante os testes.
 
 ## Git e envio do projeto
 

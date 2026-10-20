@@ -1,12 +1,12 @@
-# Registro técnico — versão inicial
+# Registro técnico — Mini-Projeto 2
 
 ## Contexto e objetivo
 
-Evoluir o sistema bancário enviado em ZIP, que mantinha clientes, contas, saldos e histórico em memória. Preservar a interface de terminal e acrescentar PostgreSQL em serviço separado, com Docker Compose.
+Evoluir o sistema bancário enviado em ZIP, que mantinha clientes, contas, saldos e histórico em memória. A versão atual preserva a interface de terminal e usa PostgreSQL para persistência, iniciado junto com a aplicação pelo Docker Compose.
 
 ## Mudanças
 
-| Original | Versão preparada |
+| Original | Versão atual |
 |---|---|
 | Dicionários em memória | Consultas e gravações PostgreSQL |
 | Saldo `float` | `Decimal` e coluna `NUMERIC` |
@@ -17,30 +17,26 @@ Evoluir o sistema bancário enviado em ZIP, que mantinha clientes, contas, saldo
 
 O polimorfismo permanece em `sacar()`: corrente permite saldo negativo até o limite; poupança limita o saque ao saldo. As entidades não executam SQL. O repositório carrega a entidade, aplica a regra e grava saldo e histórico na mesma transação. A interface informa sucesso após o retorno da operação persistente.
 
-## Verificações efetivamente realizadas
+## Verificações realizadas em 20/10/2026
 
-- Python 3.12.14.
-- Psycopg e psycopg-binary 3.2.10 instalados; importações verificadas.
-- `python -m compileall -q .`: sem erros de sintaxe.
-- YAML lido por PyYAML 6.0.3 sem erro; **não equivale** à validação pelo Compose.
-- Sete testes de regras aprovados: precisão decimal, vírgula na entrada, limite de corrente, saldo insuficiente em poupança, saque integral, valores inválidos e estouro monetário.
-- Oito testes de integração incluídos, mas **ignorados** por falta de servidor PostgreSQL disponível.
-- Docker indisponível: imagem, Compose, healthcheck e volume **não foram executados nem validados**.
+- `docker compose config --quiet`: configuração aceita pelo Docker Compose.
+- `docker compose up -d --build`: imagem construída e serviços iniciados. O PostgreSQL 17 ficou `healthy` e a aplicação ficou `Up`.
+- Fluxo pelo terminal: cliente e conta cadastrados; depósito de R$ 100,00; saque de R$ 20,00; extrato mostrou saldo de R$ 80,00 e as duas movimentações.
+- Persistência: após `docker compose down` e nova inicialização do mesmo projeto, cliente, conta, saldo e histórico continuaram disponíveis.
+- `docker compose -p m2-review-final run --rm -T -e RUN_POSTGRES_TESTS=1 app python -m unittest discover -v`: 16 testes passaram — 8 de regras e 8 de integração PostgreSQL.
 
-Saída real da suíte em `RESULTADO_TESTES.txt`.
+O fluxo manual e a persistência foram verificados no projeto Compose isolado `m2-persist-check`. A suíte completa mais recente foi executada no projeto isolado `m2-review-final`. Ambos usaram volumes descartáveis, sem alterar o banco já existente do projeto; os ambientes isolados foram removidos após as verificações.
 
-## Pendências de conclusão
+O resultado detalhado dos testes está em [`RESULTADO_TESTES.txt`](RESULTADO_TESTES.txt).
 
-- [ ] Validar `docker compose config --quiet` com `.env` local preenchido.
-- [ ] Construir a imagem e iniciar os serviços no Docker Desktop.
-- [ ] Confirmar `db` saudável e acesso ao terminal.
-- [ ] Executar os oito testes de integração PostgreSQL.
-- [ ] Validar manualmente cadastro, criação de contas, depósitos, saques e extrato.
-- [ ] Recriar os containers preservando o volume e confirmar os registros.
-- [ ] Registrar evidências reais.
-- [ ] Revisar as mudanças com Hiram e explicar o fluxo de execução.
-- [ ] Versionar código e documentação no repositório autorizado.
+## Limitações conhecidas
 
-## Limitações
+- Não foram adicionados frontend, API, autenticação ou autorização.
+- A validação de CPF aceita apenas dígitos ASCII, confere o formato e rejeita números repetidos, mas não calcula os dígitos verificadores.
+- O schema é inicial e não há ferramenta de migração de banco.
+- O extrato carrega o histórico completo da conta; para um volume maior, seria necessário paginar ou otimizar a leitura.
+- A persistência foi confirmada em um volume novo e isolado. O volume pré-existente do usuário não foi alterado durante essa verificação.
 
-Não foram adicionados frontend, API, autenticação nem validação completa de CPF. As validações originais de nome e CPF ficam no terminal; chamadas diretas ao serviço não equivalem a uma API com validação de payload. O schema é inicial, sem ferramenta de migração. Não há evidência de execução com PostgreSQL 17 nem com containers nesta versão. A tarefa permanece em andamento.
+## Preparação do ZIP
+
+Inclua o código-fonte, `README.md`, `docs/`, `Dockerfile`, `docker-compose.yml`, `requirements.txt`, `sql/`, `.env.example` e os demais arquivos de projeto. Não inclua `.env` (contém configuração local), `.git/`, `.venv/` nem `__pycache__/`.

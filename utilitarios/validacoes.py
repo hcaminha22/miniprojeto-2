@@ -24,10 +24,10 @@ def solicitar_cpf(mensagem="Digite o CPF do cliente: "):
         cpf_informado = input(mensagem).strip()
 
         formato_valido = re.fullmatch(
-            r"(?:\d{11}|\d{3}\.\d{3}\.\d{3}-\d{2})",
+            r"(?:[0-9]{11}|[0-9]{3}\.[0-9]{3}\.[0-9]{3}-[0-9]{2})",
             cpf_informado
         )
-        cpf = re.sub(r"\D", "", cpf_informado)
+        cpf = re.sub(r"[^0-9]", "", cpf_informado)
 
         if formato_valido and cpf != cpf[0] * 11:
             return cpf

@@ -3,7 +3,7 @@ from decimal import Decimal
 from entidades.cliente import Cliente
 from entidades.conta import ContaCorrente, ContaPoupanca, dinheiro
 from utilitarios.exceptions import SaldoInsuficienteError
-from utilitarios.validacoes import solicitar_valor
+from utilitarios.validacoes import solicitar_cpf, solicitar_valor
 from unittest.mock import patch
 
 
@@ -52,6 +52,12 @@ class TestContas(unittest.TestCase):
     def test_entrada_com_virgula(self):
         with patch('builtins.input', return_value='10,25'):
             self.assertEqual(solicitar_valor('Valor: '), Decimal('10.25'))
+
+    def test_cpf_rejeita_digitos_unicode(self):
+        entradas = ['١٢٣٤٥٦٧٨٩٠١', '123.456.789-01']
+        with patch('builtins.input', side_effect=entradas) as entrada:
+            self.assertEqual(solicitar_cpf(), '12345678901')
+            self.assertEqual(entrada.call_count, 2)
 
     def test_estouro_nao_altera_saldo(self):
         conta = ContaPoupanca(1, self.cliente, saldo='999999999999999.99')
