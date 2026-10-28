@@ -168,7 +168,20 @@ Digite `\q` para sair do `psql`.
 
 ## Git e envio do projeto
 
-O projeto pode ser versionado com Git. Antes de criar um commit, confira os arquivos selecionados e confirme que `.env`, caches e dados locais não serão incluídos. A configuração de remoto e o envio ao repositório online dependem do fluxo definido para a atividade.
+O código está publicado no repositório privado [hcaminha22/miniprojeto-2](https://github.com/hcaminha22/miniprojeto-2).
+
+- `main` contém a versão estável do projeto.
+- `develop` é a branch de integração para as próximas alterações.
+- Para uma nova tarefa, crie uma branch `feat/<descricao>` ou `fix/<descricao>` a partir de `develop`, faça commits com mensagens claras e envie a branch ao GitHub. Depois da revisão, integre-a em `develop`; quando a versão estiver pronta, promova-a para `main`.
+- `.gitignore` exclui `.env`, ambientes virtuais e caches Python. Mantenha senhas e configurações locais fora dos commits.
+
+Para obter o projeto e trabalhar na branch de integração:
+
+```powershell
+git clone https://github.com/hcaminha22/miniprojeto-2.git
+cd miniprojeto-2
+git switch develop
+```
 
 ## Referências
 
