@@ -168,7 +168,7 @@ Digite `\q` para sair do `psql`.
 
 ## Git e envio do projeto
 
-O código está publicado no repositório privado [hcaminha22/miniprojeto-2](https://github.com/hcaminha22/miniprojeto-2).
+O código está publicado no repositório público [hcaminha22/miniprojeto-2](https://github.com/hcaminha22/miniprojeto-2).
 
 - `main` contém a versão estável do projeto.
 - `develop` é a branch de integração para as próximas alterações.
@@ -182,6 +182,21 @@ git clone https://github.com/hcaminha22/miniprojeto-2.git
 cd miniprojeto-2
 git switch develop
 ```
+
+### Fluxo de Pull Request pelo VS Code
+
+Use uma branch própria para cada alteração. Depois de criar e salvar a mudança, publique a branch e abra um Pull Request para revisão antes de integrá-la em `develop`:
+
+```powershell
+git switch develop
+git pull origin develop
+git switch -c docs/fluxo-pr
+git add README.md
+git commit -m "docs: documenta fluxo de Pull Request"
+git push -u origin docs/fluxo-pr
+```
+
+Na extensão **GitHub Pull Requests**, crie o PR com `develop` como branch de destino e `docs/fluxo-pr` como origem. Revise os arquivos e os comentários; após a aprovação, faça o merge do PR em `develop`. O `git push` publica a branch para que ela possa ser revisada; o merge integra as alterações na branch de destino.
 
 ## Referências
 
